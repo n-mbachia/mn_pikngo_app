@@ -1,0 +1,22 @@
+<!-- templates/index.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="static rounded text-center">
+                <img src="{{ url_for('static', filename='landing_page.jpg') }}" alt="Image Caption" class="rounded img-fluid">
+            </div>
+        </div>
+        <div class="container text-center mt-3">
+            <h1>About Us</h1>
+            <ul>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}

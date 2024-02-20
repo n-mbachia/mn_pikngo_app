@@ -1,0 +1,60 @@
+/* style.css */
+
+/* Font-face for BerkshireSwash */
+@font-face {
+    font-family: 'BerkshireSwash';
+    src: url('../fonts/BerkshireSwash-Regular.woff2') format('woff2'),
+         url('../fonts/BerkshireSwash-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Body styling */
+body {
+    font-family: 'BerkshireSwash', cursive;
+}
+
+/* Center the .static element */
+.static {
+    margin: 2em auto;
+}
+
+/* Image styling within .static */
+.static img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Additional styling for the list items */
+.list-unstyled {
+    margin-top: 10px;
+}
+
+/* Additional styling for the layout */
+.post-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Styling for the image container */
+.image-container {
+    margin-right: 20px;
+}
+
+/* Change the font and color for specific elements */
+h1, h2, h3, h4, p {
+    font-family: 'BerkshireSwash', cursive;
+    color: yellowgreen;
+    text-align: center;
+    padding: 1px;
+}
+
+/* Define a class for styling the footer */
+footer {
+    font-family: 'BerkshireSwash', cursive;
+    font-size: 16px;
+    color: black;
+}

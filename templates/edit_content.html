@@ -1,0 +1,26 @@
+<!-- templates/edit_content.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Edit Content</h1>
+        <!-- Display flash messages here if needed -->
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.title.label }}
+                {{ form.title(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.body.label }}
+                {{ form.body(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.image.label }}
+                {{ form.image(class="form-control-file") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!-- In your gallery template (gallery.html) -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Gallery</h1>
+        <div class="row">
+            {% for filename in image_filenames %}
+                <div class="col-md-4 mb-4">
+                    <img src="{{ url_for('static', filename='images/' + filename) }}" class="img-fluid rounded" alt="Gallery Image">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+<!-- templates/earlier_posts.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Pik&Go Blog</h1>
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if post.image_filename %}
+                            <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" class="card-img-top" alt="Post Image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.body[:100] }}...</p>
+                            <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-primary bg-success">Read More</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
