@@ -58,6 +58,20 @@ h1, h2, h3, h4, p {
     padding: 1px;
 }
 
+p {
+    margin-bottom: 20px; /* Adjust the margin as needed */
+    line-height: 1.5; /* Adjust the line height as needed */
+}
+.body p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container */
+}
+
 /* Footer color */
 .footer {
     background-color: #bff52c; /* Change to your desired color */
