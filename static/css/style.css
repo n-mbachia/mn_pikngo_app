@@ -9,9 +9,15 @@
     font-style: normal;
 }
 
+/* Navbar color */
+.navbar {
+    background-color: #e4f8ac; /* Change to your desired color */
+    /* Additional styles */
+}
+
 /* Body styling */
 body {
-    font-family: 'BerkshireSwash', cursive;
+    font-family: 'BerkshireSwash', cursive; /* Apply font to the body */
 }
 
 /* Center the .static element */
@@ -46,15 +52,21 @@ body {
 
 /* Change the font and color for specific elements */
 h1, h2, h3, h4, p {
-    font-family: 'BerkshireSwash', cursive;
-    color: yellowgreen;
+    font-family: 'BerkshireSwash', cursive; /* Apply font to headings and paragraphs */
+    color: rgb(0, 0, 0); /* Change color to your desired value */
     text-align: center;
     padding: 1px;
 }
 
+/* Footer color */
+.footer {
+    background-color: #def8ac; /* Change to your desired color */
+    /* Additional styles */
+}
+
 /* Define a class for styling the footer */
 footer {
-    font-family: 'BerkshireSwash', cursive;
+    font-family: 'BerkshireSwash', cursive; /* Apply font to the footer */
     font-size: 16px;
-    color: black;
+    color: black; /* Change color to your desired value */
 }
