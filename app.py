@@ -17,6 +17,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['BLOGGING_SITENAME'] = 'Pik&Go'
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
 db = SQLAlchemy(app)
@@ -81,7 +82,7 @@ def admin_login():
             flash('Logged in successfully', 'success')
             return redirect(url_for('admin_dashboard'))
         else:
-            flash('Invalid username or password', 'danger')
+            flash('Invalid username or password. Please try again.', 'danger')
 
     return render_template('admin_login.html')
 

@@ -29,8 +29,7 @@
         </form>
 
        <!-- Display Existing Content -->
-        <div class="post-content">
-            <h2>Existing Content:</h2>
+        <h2>Existing Content:</h2>
             {% for content in contents %}
                 <div class="card">
                     <div class="card-body">
@@ -39,11 +38,14 @@
                         {% endif %}
                         <h3 class="card-title">{{ content.title }}</h3>
                         <div class="body">
-                            <p>{{ content.body }}</p>
+                            <p>{{ content.body[:100] }}</p>
                         </div>
                         <div class="author-info">
-                            <!-- p>Posted by: {{ content.author }}</p -->
-                        </div><!-- /.author-info -->
+                                <!-- p>Posted by: {{ content.author }}</p -->
+                        </div>
+                            
+                        <!-- /.author-info -->
+                            
                         <!-- Delete and Edit Buttons -->
                         <a href="{{ url_for('edit_content', content_id=content.id) }}" class="btn btn-warning">Edit</a>
                         <form method="post" action="{{ url_for('delete_content', content_id=content.id) }}" style="display: inline;">
@@ -53,6 +55,5 @@
                 </div>
                 <br>
             {% endfor %}
-        </div>
-     </div>
+    </div>
 {% endblock %}

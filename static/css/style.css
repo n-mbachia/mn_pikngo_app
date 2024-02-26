@@ -18,6 +18,9 @@
 /* Body styling */
 body {
     font-family: 'BerkshireSwash', cursive; /* Apply font to the body */
+    text-align: justify;
+    margin-bottom: 20px; /* Adjust the margin as needed */
+    line-height: 1.5; /* Adjust the line height as needed */
 }
 
 /* Center the .static element */
@@ -28,10 +31,11 @@ body {
 /* Image styling within .static */
 .static img {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     height: auto;
     display: block;
     margin: 0 auto;
+    border-style: none;
 }
 
 /* Additional styling for the list items */
@@ -51,17 +55,18 @@ body {
 }
 
 /* Change the font and color for specific elements */
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5 {
     font-family: 'BerkshireSwash', cursive; /* Apply font to headings and paragraphs */
     color: rgb(0, 0, 0); /* Change color to your desired value */
     text-align: center;
     padding: 1px;
 }
 
-p {
-    margin-bottom: 20px; /* Adjust the margin as needed */
-    line-height: 1.5; /* Adjust the line height as needed */
-}
+/* p {
+    margin-bottom: 20px; /* Adjust the margin as needed 
+    line-height: 1.5; /* Adjust the line height as needed  
+} */
+
 .body p {
     line-height: 1.6;
     margin-bottom: 20px;
