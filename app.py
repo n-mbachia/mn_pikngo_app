@@ -2,19 +2,19 @@
 
 from logging import DEBUG
 import os
-import secrets
 from datetime import datetime
-
+from config import Config
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
 from forms import ContentForm, AdminSignupForm
 from flask_login import logout_user
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = secrets.token_hex(16)
+app.config.from_object(Config)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['BLOGGING_SITENAME'] = 'Pik&Go'
@@ -37,8 +37,8 @@ class Content(db.Model):
     title = db.Column(db.String(255), nullable=False)
     body = db.Column(db.Text, nullable=False)
     image_filename = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # author = Column(String(100), nullable=False, default='')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    author = db.Column(db.String(100), nullable=False, default='')
                        
 # Initialize the database
 def init_db():
@@ -75,11 +75,17 @@ def admin_login():
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
-        
+        remember_me = request.form.get('remember_me')  # Check if "Remember Me" is selected
+
         user = User.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             session['admin_logged_in'] = True
             flash('Logged in successfully', 'success')
+
+            if remember_me:  # If "Remember Me" is selected, set a long-lasting session cookie
+                session.permanent = True
+                app.permanent_session_lifetime = timedelta(days=90)
+
             return redirect(url_for('admin_dashboard'))
         else:
             flash('Invalid username or password. Please try again.', 'danger')
@@ -97,7 +103,7 @@ def admin_dashboard():
     if form.validate_on_submit():
         title = form.title.data
         body = form.body.data
-        # author = form.author.data  # Add this line to get author information from the form
+        author = form.author.data  # Add this line to get author information from the form
         
         if 'image' in request.files:
             image = request.files['image']
