@@ -1,26 +1,39 @@
 <!-- templates/edit_content.html -->
 
-{% extends 'base.html' %}
+<!-- edit_content.html -->
 
+{% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-        <h1>Edit Content</h1>
-        <!-- Display flash messages here if needed -->
-        <form method="POST" enctype="multipart/form-data">
-            {{ form.csrf_token }}
-            <div class="form-group">
-                {{ form.title.label }}
-                {{ form.title(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.body.label }}
-                {{ form.body(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.image.label }}
-                {{ form.image(class="form-control-file") }}
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
-    </div>
+    <!-- Your existing HTML code for editing content -->
+
+    <form method="post" action="{{ url_for('edit_content', content_id=content_id) }}" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="title">Title:</label>
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <label for="body">Content:</label>
+            <textarea id="body" name="body" class="form-control">{{ form.body.data }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="image">Upload Image:</label>
+            {{ form.image(class="form-control-file") }}
+        </div>
+        <button type="submit" class="btn btn-primary bg-success">Update</button>
+    </form>
+
+    <!-- Include TinyMCE initialization script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js" integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        tinymce.init({
+            selector: 'textarea#body',
+            plugins: 'advlist autolink lists link image charmap print preview anchor',
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+        });
+    </script>
 {% endblock %}

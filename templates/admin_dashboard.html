@@ -9,8 +9,11 @@
 {% block content %}
     <div class="container">
         <h1>Admin Dashboard</h1>
-
-        <!-- Content Form -->
+        
+        <!-- Include TinyMCE via CDN -->        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js" integrity="sha512-SJh7xW/9SLzllt0PqjnYlomfUPi7UYF40TXU5m6kVXLFr1hdKe+L8Tqqoi1y9vlsMQBdGC2lZI0d6w04Nn6piQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <!-- Content Form -->        
         <form method="post" action="{{ url_for('admin_dashboard') }}" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <div class="form-group">
@@ -19,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="body">Content:</label>
-                {{ form.body(class="form-control") }}
+                <textarea id="body" name="body" class="form-control">{{ form.body.data }}</textarea>
             </div>
             <div class="form-group">
                 <label for="image">Upload Image:</label>
@@ -32,6 +35,17 @@
             <button type="submit" class="btn btn-primary bg-success">Submit</button>
         </form>
 
+        <script>
+            tinymce.init({
+                selector: 'textarea#body',  // Replace 'body' with the ID of your textarea field
+                plugins: 'advlist autolink lists link image charmap print preview anchor',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar_mode: 'floating',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+            });
+        </script>
+
        <!-- Display Existing Content -->
         <h2>Existing Content:</h2>
             {% for content in contents %}
@@ -42,14 +56,12 @@
                         {% endif %}
                         <h3 class="card-title">{{ content.title }}</h3>
                         <div class="body">
-                            <p>{{ content.body[:100] }}</p>
+                            <p>{{ content.body[:100] | safe }}</p>
                         </div>
                         <div class="author-info">
                                 <!-- p>Posted by: {{ content.author }}</p -->
                         </div>
-                            
-                        <!-- /.author-info -->
-                            
+                                        
                         <!-- Delete and Edit Buttons -->
                         <a href="{{ url_for('edit_content', content_id=content.id) }}" class="btn btn-warning">Edit</a>
                         <form method="post" action="{{ url_for('delete_content', content_id=content.id) }}" style="display: inline;">

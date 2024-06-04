@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from forms import ContentForm, AdminSignupForm
 from flask_login import logout_user
 
+
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -123,9 +124,20 @@ def admin_dashboard():
         return redirect(url_for('admin_dashboard'))
 
     contents = Content.query.all()
+    
+    # Include TinyMCE initialization parameters as context variables
+    tiny_mce_config = {
+        'selector': 'textarea#body',
+        'plugins': 'advlist autolink lists link image charmap print preview anchor',
+        'toolbar': 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        'toolbar_mode': 'floating',
+        'tinycomments_mode': 'embedded',
+        'tinycomments_author': 'Author name',
+    }
+    
+    return render_template('admin_dashboard.html', form=form, contents=contents, tiny_mce_config=tiny_mce_config)
 
-    return render_template('admin_dashboard.html', form=form, contents=contents)
-
+    # return render_template('admin_dashboard.html', form=form, contents=contents)
 
 # Route for editing content
 @app.route('/admin/edit_content/<int:content_id>', methods=['GET', 'POST'])
@@ -134,7 +146,8 @@ def edit_content(content_id):
         return redirect(url_for('admin_login'))
 
     form = ContentForm()
-    content = Content.query.get(content_id)
+    # content = Content.query.get(content_id)
+    content = db.session.get(Content, content_id)
 
     if form.validate_on_submit():
         content.title = form.title.data
@@ -154,10 +167,18 @@ def edit_content(content_id):
     if content:
         form.title.data = content.title
         form.body.data = content.body
-        return render_template('edit_content.html', form=form, content_id=content_id)
-    else:
-        flash('Content not found', 'danger')
-        return redirect(url_for('admin_dashboard'))
+
+    # Include TinyMCE initialization parameters as context variables
+    tiny_mce_config = {
+        'selector': 'textarea#body',
+        'plugins': 'advlist autolink lists link image charmap print preview anchor',
+        'toolbar': 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        'toolbar_mode': 'floating',
+        'tinycomments_mode': 'embedded',
+        'tinycomments_author': 'Author name',
+    }
+
+    return render_template('edit_content.html', form=form, content_id=content_id, tiny_mce_config=tiny_mce_config)
 
 # Route for deleting content
 @app.route('/admin/delete_content/<int:content_id>', methods=['POST'])
