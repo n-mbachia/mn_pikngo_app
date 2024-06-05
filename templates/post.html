@@ -8,11 +8,8 @@
     {% if post.image_filename %}
     <img src="{{ url_for('static', filename='uploads/' + post.image_filename) }}" alt="Post Image" class="img-fluid rounded float-left" style="max-width: 200px; max-height: 350px; margin-right: 20px;">
     {% endif %}
-    <p>{{ post.body | safe }}</p>
-</div>
-
-<div>
-    <button onclick="scrollToTop()" id="scrollToTopBtn" style="display: none; background-color: {{ post.created_at.strftime('#%m%d%H%M') }}; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">Return Home</button>
+    <!-- Display the content of the blog post with safe filter -->
+    {{ post.body | safe }}
 </div>
 <script>
     //scroll to top JavaScript remains unchanged)
